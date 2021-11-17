@@ -1,0 +1,22 @@
+.wrapLogin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 100vh;
+    flex-direction: column;
+}
+.nameLogin{
+    margin: 20px 0px;
+    outline: none;
+    padding: 10px 20px;
+
+}
+.passwordLogin{
+    margin-bottom:20px;
+    outline: none;
+    padding: 10px 20px;
+}
+.btnLogin{
+    padding: 10px 20px;
+}
