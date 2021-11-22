@@ -32,7 +32,7 @@
   },
   "husky":{
     "hooks": {
-      "pre-commit": "jest"
+      "pre-commit": "lint-staged"
     }
   },
   "eslintConfig": {
