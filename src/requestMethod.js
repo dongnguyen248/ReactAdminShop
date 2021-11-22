@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000/api';
-console.log();
 let TOKEN = '';
-
 if (localStorage.getItem('persist:root') != null) {
     let userLocalStorage = JSON.parse(
         JSON.parse(localStorage.getItem('persist:root')).user,

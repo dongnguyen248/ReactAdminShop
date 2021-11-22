@@ -18,7 +18,8 @@ import Login from './pages/login/Login';
 import { useSelector } from 'react-redux';
 
 function App() {
-    let admin = false;
+    let admin = useSelector((state) => state.user.currentUser);
+    console.log(admin);
     if (localStorage.getItem('persist:root') != null) {
         let userLocalStorage = JSON.parse(
             JSON.parse(localStorage.getItem('persist:root')).user,
@@ -27,50 +28,46 @@ function App() {
             admin = userLocalStorage.currentUser.isAdmin;
         }
     }
-    // let userLocalStorage = JSON.parse(
-    //   JSON.parse(localStorage.getItem("persist:root")).user
-    // );
-    // if (userLocalStorage.currentUser != null) {
-    //   const admin = useSelector((state) => state.user.currentUser.isAdmin);
-    // }
-    // "format":"prettier --single-quote --trailing-comma all --tab-width 4  --write \"scr/**/*.{js,jsx,css}\"",
 
-    console.log(admin);
     return (
         <Router>
             <Switch>
                 <Route path='/login'>
-                    <Login> </Login>
+                    {admin ? <Redirect to='/' /> : <Login />}
                 </Route>
-                {admin && (
-                    <>
-                        <Topbar />
-                        <div className='container'>
-                            <Sidebar />
-                            <Route exact path='/'>
-                                <Home />
-                            </Route>
-                            <Route path='/users'>
-                                <UserList />
-                            </Route>
-                            <Route path='/user/:userId'>
-                                <User />
-                            </Route>
-                            <Route path='/newUser'>
-                                <NewUser />
-                            </Route>
-                            <Route path='/products'>
-                                <ProductList />
-                            </Route>
-                            <Route path='/product/:productId'>
-                                <Product />
-                            </Route>
-                            <Route path='/newproduct'>
-                                <NewProduct />
-                            </Route>
-                        </div>
-                    </>
-                )}
+                <Route exact path='/'>
+                    <Home />
+                </Route>
+
+                {/* {admin && (
+          <>
+            <Topbar />
+            <div className="container">
+              <Sidebar />
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/users">
+                <UserList />
+              </Route>
+              <Route path="/user/:userId">
+                <User />
+              </Route>
+              <Route path="/newUser">
+                <NewUser />
+              </Route>
+              <Route path="/products">
+                <ProductList />
+              </Route>
+              <Route path="/product/:productId">
+                <Product />
+              </Route>
+              <Route path="/newproduct">
+                <NewProduct />
+              </Route>
+            </div>
+          </>
+        )} */}
             </Switch>
         </Router>
     );
