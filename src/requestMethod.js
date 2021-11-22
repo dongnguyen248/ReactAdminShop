@@ -1,17 +1,21 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "http://localhost:3000/api";
-let TOKEN = "";
-if (JSON.parse(localStorage.getItem("persist:root")) != null) {
-  TOKEN = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).user
-  ).accessToken;
+const BASE_URL = 'http://localhost:3000/api';
+console.log();
+let TOKEN = '';
+
+if (localStorage.getItem('persist:root') != null) {
+    let userLocalStorage = JSON.parse(
+        JSON.parse(localStorage.getItem('persist:root')).user,
+    );
+    if (userLocalStorage.currentUser != null) {
+        TOKEN = userLocalStorage.accessToken;
+    }
 }
-
 export const publicRequest = axios.create({
-  baseURL: BASE_URL,
+    baseURL: BASE_URL,
 });
 export const userRequest = axios.create({
-  baseURL: BASE_URL,
-  headers: { token: `Bear ${TOKEN}` },
+    baseURL: BASE_URL,
+    headers: { token: `Bear ${TOKEN}` },
 });
