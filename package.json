@@ -30,9 +30,10 @@
   "lint-staged": {
     "src/**/*.{js,json,scss,jsx}": "prettier --single-quote --jsx-single-quote  --jsx-bracket-same-line  --bracket-same-line --trailing-comma all --tab-width 4 --write"
   },
-  "husky":{
+  "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
     }
   },
   "eslintConfig": {
