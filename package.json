@@ -21,7 +21,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "format": "lint-staged",
+    "formatcmd":"prettier --single-quote --jsx-single-quote  --jsx-bracket-same-line  --bracket-same-line --trailing-comma all --tab-width 4 --write src/**/*.{js,json,scss,jsx}",
     "start": "set PORT=8002 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
