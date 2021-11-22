@@ -18,24 +18,17 @@ import Login from './pages/login/Login';
 import { useSelector } from 'react-redux';
 
 function App() {
-    let admin = useSelector((state) => state.user.currentUser);
-    console.log(admin);
-    if (localStorage.getItem('persist:root') != null) {
-        let userLocalStorage = JSON.parse(
-            JSON.parse(localStorage.getItem('persist:root')).user,
-        );
-        if (userLocalStorage.currentUser != null) {
-            admin = userLocalStorage.currentUser.isAdmin;
-        }
+    let admin = false;
+    const user = useSelector((state) => state.user.currentUser);
+    if (user != null) {
+        admin = user.isAdmin;
     }
+    console.log(admin);
+
     return (
         <Router>
             <Switch>
-                {admin ? <Redirect to='/' /> : <Redirect to='/login' />}
-                <Route path='/login'>
-                    <Login />
-                </Route>
-                {admin && (
+                {admin ? (
                     <>
                         <Topbar />
                         <div className='container'>
@@ -63,6 +56,10 @@ function App() {
                             </Route>
                         </div>
                     </>
+                ) : (
+                    <Route path='/login'>
+                        {admin ? <Redirect to='/' /> : <Login />}
+                    </Route>
                 )}
             </Switch>
         </Router>
