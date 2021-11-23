@@ -7,7 +7,7 @@ if (localStorage.getItem('persist:root') != null) {
         JSON.parse(localStorage.getItem('persist:root')).user,
     );
     if (userLocalStorage.currentUser != null) {
-        TOKEN = userLocalStorage.accessToken;
+        TOKEN = userLocalStorage.currentUser.accessToken;
     }
 }
 export const publicRequest = axios.create({

@@ -3,13 +3,26 @@ import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from '@material-ui/icons';
 import { productRows } from '../../dummyData';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { publicRequest } from '../../requestMethod';
 
 export default function ProductList() {
-    const [data, setData] = useState(productRows);
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+                const res = await publicRequest.get('/products');
+                // console.log(res.data);
+                setData(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getProducts();
+    }, []);
 
     const handleDelete = (id) => {
-        setData(data.filter((item) => item.id !== id));
+        setData(data.filter((item) => item._id !== id));
     };
 
     const columns = [
@@ -26,7 +39,7 @@ export default function ProductList() {
                             src={params.row.img}
                             alt=''
                         />
-                        {params.row.name}
+                        {params.row.title}
                     </div>
                 );
             },
@@ -49,19 +62,21 @@ export default function ProductList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={'/product/' + params.row.id}>
+                        <Link to={'/product/' + params.row._id}>
                             <button className='productListEdit'>Edit</button>
                         </Link>
                         <DeleteOutline
                             className='productListDelete'
-                            onClick={() => handleDelete(params.row.id)}
+                            onClick={() => handleDelete(params.row._id)}
                         />
                     </>
                 );
             },
         },
     ];
-
+    const handleGetRowId = (e) => {
+        return e._id;
+    };
     return (
         <div className='productList'>
             <DataGrid
@@ -70,6 +85,7 @@ export default function ProductList() {
                 columns={columns}
                 pageSize={8}
                 checkboxSelection
+                getRowId={handleGetRowId}
             />
         </div>
     );

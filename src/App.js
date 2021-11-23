@@ -28,7 +28,7 @@ function App() {
     return (
         <Router>
             <Switch>
-                {admin ? (
+                {admin && (
                     <>
                         <Topbar />
                         <div className='container'>
@@ -56,11 +56,16 @@ function App() {
                             </Route>
                         </div>
                     </>
-                ) : (
-                    <Route path='/login'>
-                        {admin ? <Redirect to='/' /> : <Login />}
-                    </Route>
                 )}
+                <Route path='/'>
+                    {user != null ? (
+                        <Redirect to='/' />
+                    ) : (
+                        <Route to='/login'>
+                            <Login />
+                        </Route>
+                    )}
+                </Route>
             </Switch>
         </Router>
     );
